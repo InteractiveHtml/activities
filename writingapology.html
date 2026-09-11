@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Write a Repair — Activity</title>
+<title>Write a Repair: Activity</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --purple: #390070;
@@ -52,8 +52,8 @@
   h1 {
     color: var(--title-teal);
     font-family: 'Montserrat', "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    font-weight: 700;
-    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 600;
+    font-size: clamp(1.2rem, 3.2vw, 1.6rem);
     margin: 0 0 0.5rem 0;
     line-height: 1.2;
   }
@@ -292,7 +292,7 @@
 
 <div class="wrap">
   <header class="activity-header">
-    <h1>Write a Repair</h1>
+    <h1>Challenge: A good apology</h1>
     <p class="lede">Practise the ingredients of a genuine apology. First for yourself, then for your partner.</p>
     <p class="lede">You can download your answers if you like. Note: your words stay on this page. Nothing is saved or sent anywhere unless you choose to download or print.</p>
   </header>
@@ -305,9 +305,9 @@
     <form id="repair-form">
 
       <section class="part" aria-labelledby="part1-heading">
-        <h2 id="part1-heading">Part 1 — The apology you wish you'd heard</h2>
+        <h2 id="part1-heading">Part 1: The apology you wish you'd heard</h2>
         <div class="part-intro">
-          <p>Think about a time you experienced a mild hurt in a relationship — not your most painful memory, just something that still niggles a little. Notice how it made you feel, and why it bothered you.</p>
+          <p>Think about a time you experienced a mild hurt in a relationship, not your most painful memory, just something that still niggles a little. Notice how it made you feel, and why it bothered you.</p>
           <p>Using the ingredients below, write the apology you would have liked to receive from your partner.</p>
         </div>
 
@@ -327,7 +327,7 @@
       </section>
 
       <section class="part" aria-labelledby="part2-heading">
-        <h2 id="part2-heading">Part 2 — Now write it the other way</h2>
+        <h2 id="part2-heading">Part 2: Now write it the other way</h2>
         <div class="part-intro">
           <p>Think about a time you mildly hurt your partner. Think about how it made them feel, and why it bothered them.</p>
           <p>Using the same ingredients, write an apology to your partner to practise putting it into words.</p>
@@ -362,7 +362,7 @@
 </div>
 
 <footer class="privacy-note no-print">
-  Your words stay on this page — nothing is saved or sent anywhere unless you choose to download or print.
+  Your words stay on this page. Nothing is saved or sent anywhere unless you choose to download or print.
 </footer>
 
 <script>
@@ -393,14 +393,14 @@
 
   function buildFileContent() {
     var lines = [];
-    lines.push("WRITE A REPAIR — MY RESPONSES");
+    lines.push("WRITE A REPAIR: MY RESPONSES");
     lines.push("Saved on " + formatDate());
     lines.push("");
-    lines.push("PART 1 — The apology I would have liked to receive");
+    lines.push("PART 1: The apology I would have liked to receive");
     lines.push("----------------------------------------------------");
     lines.push(receivedField.value.trim() || "(left blank)");
     lines.push("");
-    lines.push("PART 2 — My apology to my partner");
+    lines.push("PART 2: My apology to my partner");
     lines.push("----------------------------------------------------");
     lines.push(givenField.value.trim() || "(left blank)");
     lines.push("");
