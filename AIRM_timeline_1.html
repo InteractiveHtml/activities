@@ -1,419 +1,603 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-AU">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AIRM Timeline</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Write a Repair: Activity</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --wounded:#390070;
-    --wounding:#d22176;
-    --panel-bg:#f9f9f9;
-    --line-color:#d5d5db;
-    --text-main:#26262b;
-    --text-sub:#54545c;
-    --circle-size:64px;
+  :root {
+    --purple: #390070;
+    --title-teal: #2c9393;
+    --page-bg: #e4de74;
+    --ink: #23222b;
+    --teal: #407e8d;
+    --teal-dark: #2f5f60;
+    --mint-pale: #dcf2f3;
+    --mint-mid: #aae0df;
+    --magenta: #c13575;
+    --mustard: #cebb46;
+    --cream: #fbf7e8;
+    --white: #ffffff;
+    --border: #c7dede;
+    --max-width: 760px;
   }
-  *{box-sizing:border-box;}
-  html,body{background:transparent;margin:0;padding:0;}
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    color:var(--text-main);
-  }
-  .airm-wrap{
-    max-width:720px;
-    margin:0 auto;
-    padding:8px 16px 40px;
-    background:transparent;
-  }
-  .airm-heading{
-    font-family:'Montserrat',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    font-size:1.04rem;
-    font-weight:700;
-    margin:0 0 4px;
-    color:var(--text-main);
-  }
-  .airm-sub{
-    font-size:0.95rem;
-    color:var(--text-sub);
-    margin:0 0 22px;
-  }
-  .airm-legend{
-    display:flex;
-    flex-wrap:wrap;
-    gap:14px 22px;
-    margin-bottom:28px;
-    font-size:0.85rem;
-    font-weight:600;
-  }
-  .legend-item{display:flex;align-items:center;gap:8px;}
-  .dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;}
-  .dot.wounded{background:var(--wounded);}
-  .dot.wounding{background:var(--wounding);}
-  .dot.both{background:linear-gradient(135deg,var(--wounded) 50%, var(--wounding) 50%);}
 
-  .airm-timeline{display:flex;flex-direction:column;}
-  .airm-item{display:flex;}
-  .rail{
-    width:var(--circle-size);
-    flex:0 0 var(--circle-size);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-  }
-  .circle{
-    width:var(--circle-size);
-    height:var(--circle-size);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
-    font-weight:800;
-    font-size:calc(var(--circle-size) * 0.4);
-    flex-shrink:0;
-    box-shadow:0 2px 6px rgba(0,0,0,0.18);
-  }
-  .circle.wounded{background:var(--wounded);}
-  .circle.wounding{background:var(--wounding);}
-  .circle.both{background:linear-gradient(135deg,var(--wounded) 50%, var(--wounding) 50%);}
-  .line{
-    flex:1;
-    width:3px;
-    background:var(--line-color);
-    margin-top:2px;
-  }
-  .airm-item:last-child .line{background:transparent;}
+  * { box-sizing: border-box; }
 
-  .content{flex:1;min-width:0;padding-bottom:29px;}
-  .title-row{
-    all:unset;
-    box-sizing:border-box;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    width:100%;
-    min-height:var(--circle-size);
-    padding:6px 4px;
-    border-radius:8px;
-  }
-  .title-row:focus-visible{outline:2px solid var(--wounding);outline-offset:2px;}
-  .title-main{flex:1;min-width:0;}
-  .title-text{
-    display:block;
-    font-family:'Montserrat',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    font-weight:700;
-    font-size:1.05rem;
-    line-height:1.3;
-    color:var(--text-main);
-  }
-  .step-tag{
-    display:inline-block;
-    margin-top:4px;
-    font-size:0.68rem;
-    font-weight:650;
-    text-transform:uppercase;
-    letter-spacing:0.04em;
-    color:#fff;
-    padding:2px 9px;
-    border-radius:999px;
-  }
-  .step-tag.wounded{background:var(--wounded);}
-  .step-tag.wounding{background:var(--wounding);}
-  .step-tag.both{background:linear-gradient(135deg,var(--wounded), var(--wounding));}
+  html { -webkit-text-size-adjust: 100%; }
 
-  .chevron{
-    flex-shrink:0;
-    width:20px;height:20px;
-    transition:transform 0.25s ease;
-    transform:rotate(-90deg);
+  body {
+    margin: 0;
+    background: var(--page-bg);
+    color: var(--ink);
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.55;
+    font-size: 1rem;
   }
-  .airm-item.open .chevron{transform:rotate(0deg);}
 
-  .panel{
-    max-height:0;
-    overflow:hidden;
-    transition:max-height 0.3s ease;
-    background:var(--panel-bg);
-    border-radius:10px;
+  .wrap {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
   }
-  .panel-inner{padding:14px 16px 16px;font-family:'Roboto',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
-  .panel-desc{
-    margin:0 0 12px;
-    color:var(--text-sub);
-    line-height:1.55;
-    font-size:1.14rem;
-  }
-  .example{
-    background:#fff;
-    border-left:4px solid;
-    border-radius:6px;
-    padding:10px 14px;
-    margin-bottom:10px;
-    font-style:italic;
-    line-height:1.5;
-    font-size:1.12rem;
-  }
-  .example:last-child{margin-bottom:0;}
-  .example.wounded{border-color:var(--wounded);color:var(--wounded);}
-  .example.wounding{border-color:var(--wounding);color:var(--wounding);}
-  .example.both{border-color:transparent;border-image:linear-gradient(135deg,var(--wounded),var(--wounding)) 1;color:var(--text-main);font-style:normal;}
-  .example-tag{
-    display:block;
-    font-style:normal;
-    font-weight:800;
-    font-size:0.66rem;
-    text-transform:uppercase;
-    letter-spacing:0.04em;
-    margin-top:6px;
-    opacity:0.85;
-  }
-  .caution{
-    background:#fff7ed;
-    border-left:4px solid #d97706;
-    border-radius:6px;
-    padding:10px 14px;
-    margin-top:4px;
-    font-size:1.06rem;
-    color:#7c4a03;
-    line-height:1.5;
-  }
-  .caution strong{display:block;font-family:'Montserrat',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:4px;}
-  .caution em{display:block;margin-top:6px;font-style:italic;}
 
-  @media (max-width:480px){
-    :root{--circle-size:48px;}
-    .airm-heading{font-size:1.15rem;}
-    .title-text{font-size:0.98rem;}
-    .airm-wrap{padding:8px 10px 32px;}
+  header.activity-header {
+    padding-top: clamp(1.5rem, 4vw, 2.5rem);
+    padding-bottom: 0.5rem;
+  }
+
+  h1 {
+    color: var(--title-teal);
+    font-family: 'Montserrat', "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.2rem, 3.2vw, 1.6rem);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.2;
+  }
+
+  .lede {
+    margin: 0 0 0.75rem 0;
+    font-family: 'Roboto', "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.94rem;
+    max-width: 60ch;
+  }
+
+  .lede:last-child {
+    margin-bottom: 0;
+  }
+
+  main {
+    background: var(--white);
+    border-radius: 14px;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    margin-top: 1.5rem;
+    box-shadow: 0 1px 3px rgba(37, 34, 94, 0.12);
+  }
+
+  section.part {
+    margin-bottom: 2.5rem;
+  }
+
+  section.part:last-of-type {
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    color: var(--purple);
+    font-size: 1.25rem;
+    margin: 0 0 0.75rem 0;
+  }
+
+  .part-intro p {
+    margin: 0 0 0.75rem 0;
+  }
+
+  .part-intro p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ingredients {
+    background: var(--mint-pale);
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--teal);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+  }
+
+  .ingredients p.label {
+    margin: 0 0 0.5rem 0;
+    font-weight: 700;
+    color: var(--teal-dark);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+  }
+
+  .ingredients ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .ingredients li {
+    margin-bottom: 0.4rem;
+  }
+
+  .ingredients li:last-child {
+    margin-bottom: 0;
+  }
+
+  label.field-label {
+    display: block;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 11rem;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+  }
+
+  textarea::placeholder {
+    color: #7a7a86;
+  }
+
+  textarea:focus-visible,
+  button:focus-visible {
+    outline: 3px solid var(--magenta);
+    outline-offset: 2px;
+  }
+
+  /* Fallback for browsers without :focus-visible support */
+  textarea:focus,
+  button:focus {
+    outline: 3px solid var(--magenta);
+    outline-offset: 2px;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  button {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    border: 2px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  button svg {
+    width: 1.1em;
+    height: 1.1em;
+    flex-shrink: 0;
+  }
+
+  .btn-primary {
+    background: var(--teal);
+    color: var(--white);
+    border-color: var(--teal);
+  }
+
+  .btn-primary:hover {
+    background: var(--teal-dark);
+    border-color: var(--teal-dark);
+  }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--purple);
+    border-color: var(--purple);
+  }
+
+  .btn-secondary:hover {
+    background: var(--mint-pale);
+  }
+
+  #status-message {
+    margin: 0.75rem 0 0 0;
+    font-size: 0.95rem;
+    color: var(--teal-dark);
+    min-height: 1.4em;
+  }
+
+  footer.privacy-note {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 4vw, 2.5rem) 2.5rem;
+    font-size: 0.9rem;
+    color: #4a4a56;
+  }
+
+  .print-only {
+    display: none;
+  }
+
+  .pdf-page {
+    position: fixed;
+    left: -9999px;
+    top: 0;
+    width: 700px;
+    background: var(--white);
+    color: var(--ink);
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
+    padding: 32px;
+  }
+
+  .pdf-page h1 {
+    color: var(--title-teal);
+    font-family: 'Montserrat', "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 0 0 0.35rem 0;
+    line-height: 1.2;
+  }
+
+  .pdf-page .pdf-date {
+    font-size: 0.85rem;
+    color: #4a4a56;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .pdf-page h2 {
+    color: var(--purple);
+    font-size: 1.15rem;
+    margin: 1.75rem 0 0.6rem 0;
+  }
+
+  .pdf-page h2:first-of-type {
+    margin-top: 0;
+  }
+
+  .pdf-page .part-intro p {
+    margin: 0 0 0.6rem 0;
+    font-size: 0.92rem;
+  }
+
+  .pdf-page .pdf-ingredients {
+    background: var(--mint-pale);
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--teal);
+    border-radius: 8px;
+    padding: 0.85rem 1.1rem;
+    margin: 0.85rem 0 1rem 0;
+  }
+
+  .pdf-page .pdf-ingredients p.label {
+    margin: 0 0 0.4rem 0;
+    font-weight: 700;
+    color: var(--teal-dark);
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+  }
+
+  .pdf-page .pdf-ingredients ul {
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+
+  .pdf-page .pdf-ingredients li {
+    margin-bottom: 0.3rem;
+    font-size: 0.88rem;
+  }
+
+  .pdf-page .pdf-label {
+    display: block;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 0.4rem 0;
+    font-size: 0.92rem;
+  }
+
+  .pdf-page .pdf-answer {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 0.9rem;
+    min-height: 2.5rem;
+    font-size: 0.92rem;
+    margin: 0 0 0.25rem 0;
+  }
+
+  noscript p {
+    background: var(--cream);
+    border: 1px solid var(--mustard);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    display: block;
+    margin: 1.5rem 0;
+  }
+
+  @media (max-width: 480px) {
+    .actions {
+      flex-direction: column;
+    }
+    button {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+    }
+  }
+
+  @media print {
+    body {
+      background: var(--white);
+    }
+    main {
+      box-shadow: none;
+      padding: 0;
+    }
+    .no-print {
+      display: none !important;
+    }
+    .print-only {
+      display: block;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      min-height: 3rem;
+    }
+    a[href]::after {
+      content: "";
+    }
   }
 </style>
 </head>
 <body>
-<div class="airm-wrap">
-  <p class="airm-heading">AIRM: Attachment Injury Repair Model</p>
-  <p class="airm-sub">Tap a step to see what it involves and what it can sound like in practice.</p>
 
-  <div class="airm-legend">
-    <div class="legend-item"><span class="dot wounded"></span>Wounded partner</div>
-    <div class="legend-item"><span class="dot wounding"></span>Wounding partner</div>
-    <div class="legend-item"><span class="dot both"></span>Both partners</div>
-  </div>
+<div class="wrap">
+  <header class="activity-header">
+    <h1>Challenge: A good apology</h1>
+    <p class="lede">Practise the ingredients of a genuine apology. First for yourself, then for your partner.</p>
+    <p class="lede">Note: your words stay on this page only. They are not saved anywhere except in your own browser, on this device. You can choose to download or print this activity.</p>
+  </header>
 
-  <div class="airm-timeline" id="airmTimeline">
+  <noscript>
+    <p>This activity works best with JavaScript enabled, so you can download or print your responses. You can still write your reflections in the boxes below and copy them out manually.</p>
+  </noscript>
 
-    <div class="airm-item">
-      <div class="rail"><div class="circle wounded">1</div><div class="line"></div></div>
-      <div class="content">
-        <button class="title-row" aria-expanded="false">
-          <span class="title-main">
-            <span class="title-text">Speaking the pain</span>
-            <span class="step-tag wounded">Wounded partner</span>
-          </span>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#8a8a92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="panel">
-          <div class="panel-inner">
-            <p class="panel-desc">The wounded partner tells their partner how the injury hurt them, explaining both the feeling and why it hurt.</p>
-            <div class="example wounded">"I felt abandoned."</div>
-            <div class="example wounded">"I felt humiliated and small."</div>
-            <div class="example wounded">"I felt completely alone."</div>
-          </div>
+  <main>
+    <form id="repair-form">
+
+      <section class="part" aria-labelledby="part1-heading">
+        <h2 id="part1-heading">Part 1: The apology you wish you'd heard</h2>
+        <div class="part-intro">
+          <p>Think about a time you experienced a mild hurt in a relationship, not your most painful memory, just something that still niggles a little. Notice how it made you feel, and why it bothered you.</p>
+          <p>Using the ingredients below, write the apology you would have liked to receive from your partner.</p>
         </div>
-      </div>
-    </div>
 
-    <div class="airm-item">
-      <div class="rail"><div class="circle wounded">2</div><div class="line"></div></div>
-      <div class="content">
-        <button class="title-row" aria-expanded="false">
-          <span class="title-main">
-            <span class="title-text">Naming the deeper need</span>
-            <span class="step-tag wounded">Wounded partner</span>
-          </span>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#8a8a92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="panel">
-          <div class="panel-inner">
-            <p class="panel-desc">The wounded partner goes further, identifying the attachment pain and unmet attachment need underneath the feeling.</p>
-            <div class="example wounded">"I needed you beside me, not to be alone, and I felt gutted in your absence."</div>
-            <div class="example wounded">"I needed to know that I mattered to you, and I felt worthless thinking I didn't."</div>
-            <div class="example wounded">"I needed to feel like we were facing this together, and felt lonely and isolated instead."</div>
-          </div>
+        <div class="ingredients">
+          <p class="label">Ingredients of a successful apology</p>
+          <ul>
+            <li>Describe the offence and express remorse.</li>
+            <li>Acknowledge the impact of the offence.</li>
+            <li>Ask your partner what they need.</li>
+            <li>Where appropriate, explain how you'll make sure it doesn't happen again.</li>
+          </ul>
         </div>
-      </div>
-    </div>
 
-    <div class="airm-item">
-      <div class="rail"><div class="circle wounding">3</div><div class="line"></div></div>
-      <div class="content">
-        <button class="title-row" aria-expanded="false">
-          <span class="title-main">
-            <span class="title-text">Hearing and validating</span>
-            <span class="step-tag wounding">Wounding partner</span>
-          </span>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#8a8a92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="panel">
-          <div class="panel-inner">
-            <p class="panel-desc">The wounding partner hears, acknowledges and validates the impact of the injury, with genuine patience, empathy and ownership. They demonstrate an understanding of the impact of the injury.</p>
-            <div class="example wounding">"I can see that you felt abandoned when you needed me the most, and I was not there for you. I am truly sorry that I hurt you. I am here for you now, and I want you to know that you matter to me and that I am not going anywhere."</div>
-          </div>
+        <label class="field-label" for="response-received">The apology I would have liked to receive</label>
+        <textarea id="response-received" name="response-received" placeholder="Type your text here…" aria-describedby="part1-heading"></textarea>
+        <div class="print-only" id="print-received" aria-hidden="true"></div>
+      </section>
+
+      <section class="part" aria-labelledby="part2-heading">
+        <h2 id="part2-heading">Part 2: Now write it the other way</h2>
+        <div class="part-intro">
+          <p>Think about a time you mildly hurt your partner. Think about how it made them feel, and why it bothered them.</p>
+          <p>Using the same ingredients, write an apology to your partner to practise putting it into words.</p>
         </div>
-      </div>
-    </div>
 
-    <div class="airm-item">
-      <div class="rail"><div class="circle wounding">4</div><div class="line"></div></div>
-      <div class="content">
-        <button class="title-row" aria-expanded="false">
-          <span class="title-main">
-            <span class="title-text">Taking responsibility</span>
-            <span class="step-tag wounding">Wounding partner</span>
-          </span>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#8a8a92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <label class="field-label" for="response-given">My apology to my partner</label>
+        <textarea id="response-given" name="response-given" placeholder="Type your text here…" aria-describedby="part2-heading"></textarea>
+        <div class="print-only" id="print-given" aria-hidden="true"></div>
+      </section>
+
+      <div class="actions no-print">
+        <button type="button" id="download-btn" class="btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M12 3v12"></path>
+            <path d="M7 10l5 5 5-5"></path>
+            <path d="M5 21h14"></path>
+          </svg>
+          Download my responses
         </button>
-        <div class="panel">
-          <div class="panel-inner">
-            <p class="panel-desc">The wounding partner moves away from defensiveness, minimising, justifying and explaining, and takes ownership. They allow repeated conversations where their partner's feelings are heard and validated.</p>
-            <div class="example wounding">"I am sorry that I hurt you, and I know it will take time for you to trust me again. But I am here for you, and you can talk about this with me as often as you need."</div>
-            <div class="example wounding">"I did the wrong thing, and I am committed to rebuilding your trust. I know it might take some time."</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="airm-item">
-      <div class="rail"><div class="circle wounding">5</div><div class="line"></div></div>
-      <div class="content">
-        <button class="title-row" aria-expanded="false">
-          <span class="title-main">
-            <span class="title-text">Expressing remorse</span>
-            <span class="step-tag wounding">Wounding partner</span>
-          </span>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#8a8a92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <button type="button" id="print-btn" class="btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M6 9V3h12v6"></path>
+            <path d="M6 18H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2"></path>
+            <path d="M6 14h12v7H6z"></path>
+          </svg>
+          Print this page
         </button>
-        <div class="panel">
-          <div class="panel-inner">
-            <p class="panel-desc">Must express genuine regret and remorse, not impatience for the pain to be resolved.</p>
-            <div class="example wounding">"I did the wrong thing, and I am committed to rebuilding your trust."</div>
-            <div class="example wounding">"I'm sorry I hurt you and rocked your world. I can now see that what I did made you feel like your life was turned upside down."</div>
-            <div class="caution"><strong>Common error</strong>The wounding partner becoming impatient for the pain to be resolved and begins to express this:<em>"I have said I am sorry, how many times do we have to go through this."</em><em>"What more do you want from me, I can't change my actions."</em></div>
-          </div>
-        </div>
       </div>
-    </div>
-
-    <div class="airm-item">
-      <div class="rail"><div class="circle wounding">6</div><div class="line"></div></div>
-      <div class="content">
-        <button class="title-row" aria-expanded="false">
-          <span class="title-main">
-            <span class="title-text">Responding and engaging</span>
-            <span class="step-tag wounding">Wounding partner</span>
-          </span>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#8a8a92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="panel">
-          <div class="panel-inner">
-            <p class="panel-desc">Reassurance is provided and direct action is taken to repair, not just words.</p>
-            <div class="example wounding">"I wish I was there for you."</div>
-            <div class="example wounding">"You matter to me more than anyone else."</div>
-            <div class="example wounding">"I have made an appointment to see a psychologist, and I am starting AA."</div>
-            <div class="example wounding">"I can arrange couples therapy for us, if you would like."</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="airm-item">
-      <div class="rail"><div class="circle wounded">7</div><div class="line"></div></div>
-      <div class="content">
-        <button class="title-row" aria-expanded="false">
-          <span class="title-main">
-            <span class="title-text">Accepting the apology and expressing needs</span>
-            <span class="step-tag wounded">Wounded partner</span>
-          </span>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#8a8a92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="panel">
-          <div class="panel-inner">
-            <p class="panel-desc">Once they can hear the remorse, the wounded partner accepts the apology. This takes bravery and vulnerability, as it means lowering their guard.</p>
-            <p class="panel-desc">The acceptance allows them to slowly lower their protective walls and <strong>ask for what they need going forward</strong>. In doing this they risk the possibility of their partner not being there for them or responding to their needs.</p>
-            <p class="panel-desc">When the wounding partner responds with care and commitment, it helps to restore a loving bond and communicates "I am here for you, you matter to me".</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="airm-item">
-      <div class="rail"><div class="circle both">8</div></div>
-      <div class="content">
-        <button class="title-row" aria-expanded="false">
-          <span class="title-main">
-            <span class="title-text">Rebuilding trust</span>
-            <span class="step-tag both">Both partners</span>
-          </span>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#8a8a92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="panel">
-          <div class="panel-inner">
-            <p class="panel-desc">This step is ongoing. It requires consistency, transparency and reliability from both partners over time.</p>
-            <p class="panel-desc">Let's learn more about it on the next screen.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
+      <p id="status-message" class="no-print" role="status" aria-live="polite"></p>
+    </form>
+  </main>
 </div>
 
+<footer class="privacy-note no-print">
+  Your words stay on this page. Nothing is saved or sent anywhere unless you choose to download or print.
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
-  function closeItem(item){
-    var panel = item.querySelector('.panel');
-    var btn = item.querySelector('.title-row');
-    panel.style.maxHeight = panel.scrollHeight + 'px';
-    requestAnimationFrame(function(){
-      item.classList.remove('open');
-      panel.style.maxHeight = '0px';
-    });
-    btn.setAttribute('aria-expanded','false');
+(function () {
+  "use strict";
+
+  var receivedField = document.getElementById("response-received");
+  var givenField = document.getElementById("response-given");
+  var printReceived = document.getElementById("print-received");
+  var printGiven = document.getElementById("print-given");
+  var statusMessage = document.getElementById("status-message");
+  var downloadBtn = document.getElementById("download-btn");
+  var printBtn = document.getElementById("print-btn");
+  var STORAGE_KEY = "challenge-good-apology-responses-v1";
+
+  function loadSavedResponses() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) { return; }
+      var data = JSON.parse(raw);
+      if (data && typeof data.received === "string") { receivedField.value = data.received; }
+      if (data && typeof data.given === "string") { givenField.value = data.given; }
+    } catch (err) {
+      // Storage unavailable or blocked; nothing to restore.
+    }
   }
 
-  function openItem(item){
-    var panel = item.querySelector('.panel');
-    var btn = item.querySelector('.title-row');
-    item.classList.add('open');
-    panel.style.maxHeight = panel.scrollHeight + 'px';
-    btn.setAttribute('aria-expanded','true');
+  function saveResponses() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        received: receivedField.value,
+        given: givenField.value
+      }));
+    } catch (err) {
+      // Storage unavailable; responses just won't carry across screens.
+    }
   }
 
-  document.querySelectorAll('.title-row').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var item = btn.closest('.airm-item');
-      var isOpen = item.classList.contains('open');
+  loadSavedResponses();
 
-      document.querySelectorAll('.airm-item.open').forEach(function(openItemEl){
-        if (openItemEl !== item) closeItem(openItemEl);
-      });
+  function syncPrintView() {
+    printReceived.textContent = receivedField.value || "(left blank)";
+    printGiven.textContent = givenField.value || "(left blank)";
+  }
 
-      if (isOpen) {
-        closeItem(item);
-      } else {
-        openItem(item);
+  function setStatus(message) {
+    statusMessage.textContent = message;
+  }
+
+  function formatDate() {
+    var d = new Date();
+    return d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+  }
+
+  function buildPdfWrapper() {
+    var wrapper = document.createElement("div");
+    wrapper.className = "pdf-page";
+
+    var titleClone = document.querySelector(".activity-header h1").cloneNode(true);
+    wrapper.appendChild(titleClone);
+
+    var dateEl = document.createElement("p");
+    dateEl.className = "pdf-date";
+    dateEl.textContent = "Responses saved on " + formatDate();
+    wrapper.appendChild(dateEl);
+
+    var sections = document.querySelectorAll("#repair-form section.part");
+
+    function addPart(section, fieldValue) {
+      var heading = section.querySelector("h2").cloneNode(true);
+      wrapper.appendChild(heading);
+
+      var intro = section.querySelector(".part-intro");
+      if (intro) {
+        wrapper.appendChild(intro.cloneNode(true));
       }
+
+      var ingredients = section.querySelector(".ingredients");
+      if (ingredients) {
+        var ingClone = ingredients.cloneNode(true);
+        ingClone.className = "pdf-ingredients";
+        wrapper.appendChild(ingClone);
+      }
+
+      var label = section.querySelector("label.field-label").cloneNode(true);
+      label.className = "pdf-label";
+      wrapper.appendChild(label);
+
+      var answer = document.createElement("div");
+      answer.className = "pdf-answer";
+      answer.textContent = fieldValue.trim() || "(left blank)";
+      wrapper.appendChild(answer);
+    }
+
+    addPart(sections[0], receivedField.value);
+    addPart(sections[1], givenField.value);
+
+    return wrapper;
+  }
+
+  downloadBtn.addEventListener("click", function () {
+    if (!receivedField.value.trim() && !givenField.value.trim()) {
+      setStatus("Write a response in at least one box before downloading.");
+      return;
+    }
+    if (typeof html2pdf === "undefined") {
+      setStatus("Sorry, the download tool didn't load. Try the Print button instead.");
+      return;
+    }
+    setStatus("Preparing your PDF…");
+    var wrapper = buildPdfWrapper();
+    document.body.appendChild(wrapper);
+    var opts = {
+      margin: 14,
+      filename: "challenge-a-good-apology-responses.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: "pt", format: "a4", orientation: "portrait" }
+    };
+    html2pdf().set(opts).from(wrapper).save().then(function () {
+      document.body.removeChild(wrapper);
+      setStatus("Downloaded as challenge-a-good-apology-responses.pdf");
+    }).catch(function () {
+      if (wrapper.parentNode) { document.body.removeChild(wrapper); }
+      setStatus("Sorry, the download didn't work. Try the Print button instead.");
     });
   });
 
-  window.addEventListener('resize', function(){
-    document.querySelectorAll('.airm-item.open .panel').forEach(function(panel){
-      panel.style.maxHeight = panel.scrollHeight + 'px';
-    });
+  printBtn.addEventListener("click", function () {
+    syncPrintView();
+    window.print();
   });
+
+  receivedField.addEventListener("input", saveResponses);
+  givenField.addEventListener("input", saveResponses);
+
+  window.addEventListener("beforeprint", syncPrintView);
+  if (window.matchMedia) {
+    var mediaQueryList = window.matchMedia("print");
+    mediaQueryList.addListener && mediaQueryList.addListener(function (mql) {
+      if (mql.matches) { syncPrintView(); }
+    });
+  }
+})();
 </script>
+
 </body>
 </html>
