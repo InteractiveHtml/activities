@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Raw Spots Reflection</title>
+<meta name="description" content="A private reflection activity. Write down your triggers and raw spots, and your partner's, then copy your answers to keep.">
+
+<!-- Montserrat for headings -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+<!--
+  Proxima Nova (body text) is an Adobe Fonts typeface.
+  If the client has an Adobe Fonts web project, paste its link here, for example:
+  <link rel="stylesheet" href="https://use.typekit.net/XXXXXXX.css">
+  Without it, body text falls back to a clean system sans-serif.
+-->
+
+<style>
+  :root {
+    --navy: #131131;
+    --indigo: #262262;
+    --purple: #390070;
+    --magenta: #d22176;
+    --teal: #2dabbf;
+    --teal-dark: #22808f;
+    --aqua: #9ae2e0;
+    --aqua-pale: #d7f3f3;
+    --gold: #d2ba21;
+    --activity-bg: #e4de74;
+    --white: #ffffff;
+    --text: #131131;
+    --muted: #3d3b5c;
+    --radius: 18px;
+    --focus: 0 0 0 3px var(--white), 0 0 0 6px var(--navy);
+    --font-body: "proxima-nova", "Proxima Nova", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --font-head: "Montserrat", "proxima-nova", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--activity-bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 32px 16px 48px;
+  }
+
+  h1, h2, h3, legend {
+    font-family: var(--font-head);
+    color: var(--purple);
+    line-height: 1.25;
+  }
+
+  h1 { font-size: clamp(1.6rem, 4vw, 2.1rem); margin: 0 0 .5rem; }
+  h2 { font-size: clamp(1.3rem, 3vw, 1.6rem); margin: 0 0 .25rem; }
+  h2:focus { outline: none; }
+  h2:focus-visible { box-shadow: var(--focus); border-radius: 6px; }
+
+  .intro p { margin: .25rem 0 .75rem; max-width: 70ch; }
+
+  .privacy {
+    display: flex;
+    gap: .6rem;
+    align-items: flex-start;
+    background: rgba(255,255,255,.55);
+    border-left: 5px solid var(--purple);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    margin: 1rem 0 1.5rem;
+    font-size: .98rem;
+  }
+  .privacy svg { flex: 0 0 auto; margin-top: .2rem; }
+
+  /* Progress */
+  .progress {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+  }
+  .progress li {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-weight: 600;
+    font-size: .95rem;
+    background: rgba(255,255,255,.55);
+    padding: .35rem .85rem .35rem .4rem;
+    border-radius: 999px;
+    color: var(--muted);
+  }
+  .progress .num {
+    display: inline-grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--purple);
+    font-family: var(--font-head);
+    font-size: .9rem;
+    border: 2px solid var(--purple);
+  }
+  .progress li[aria-current="step"] { background: var(--white); color: var(--navy); }
+  .progress li[aria-current="step"] .num { background: var(--purple); color: var(--white); }
+  .progress li.done .num { background: var(--teal-dark); border-color: var(--teal-dark); color: var(--white); }
+
+  /* Card */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: clamp(20px, 4vw, 36px);
+    box-shadow: 0 6px 24px rgba(19,17,49,.10);
+  }
+  .card[hidden] { display: none; }
+
+  .step-lead { margin: .25rem 0 1.5rem; color: var(--muted); }
+
+  fieldset {
+    border: 0;
+    margin: 0 0 1.75rem;
+    padding: 0;
+    min-width: 0;
+  }
+  legend {
+    font-size: 1.12rem;
+    font-weight: 700;
+    padding: 0;
+    margin-bottom: .35rem;
+    color: var(--navy);
+  }
+  .hint { margin: 0 0 .85rem; color: var(--muted); font-size: .97rem; }
+
+  /* Choice chips: real checkboxes, styled */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    margin-bottom: 1rem;
+  }
+  .chip { position: relative; }
+  .chip input {
+    position: absolute;
+    opacity: 0;
+    width: 1px; height: 1px;
+    margin: 0;
+  }
+  .chip label {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    min-height: 44px;
+    padding: .5rem 1rem .5rem .75rem;
+    border: 2px solid var(--indigo);
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--navy);
+    cursor: pointer;
+    font-weight: 500;
+    user-select: none;
+    transition: background-color .15s, color .15s;
+  }
+  .chip .tick {
+    width: 1.15rem; height: 1.15rem;
+    border: 2px solid var(--indigo);
+    border-radius: 4px;
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 auto;
+    background: var(--white);
+  }
+  .chip .tick svg { opacity: 0; }
+  .chip label:hover { background: var(--aqua-pale); }
+  .chip input:checked + label {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: var(--white);
+  }
+  .chip input:checked + label .tick { border-color: var(--white); background: var(--white); }
+  .chip input:checked + label .tick svg { opacity: 1; }
+  .chip input:focus-visible + label { box-shadow: var(--focus); }
+
+  .field { margin-top: .25rem; }
+  .field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: .35rem;
+  }
+  .field .optional { font-weight: 400; color: var(--muted); }
+  textarea, input[type="text"] {
+    width: 100%;
+    font: inherit;
+    color: var(--navy);
+    border: 2px solid #8a88a6;
+    border-radius: 12px;
+    padding: .7rem .85rem;
+    background: var(--white);
+  }
+  textarea { min-height: 96px; resize: vertical; }
+  textarea:focus-visible, input[type="text"]:focus-visible {
+    outline: none;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px var(--aqua);
+  }
+
+  .divider {
+    height: 1px;
+    background: #e4e3ee;
+    margin: .5rem 0 1.75rem;
+    border: 0;
+  }
+
+  /* Buttons */
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  .actions .right { display: flex; flex-wrap: wrap; gap: .75rem; margin-left: auto; }
+  button {
+    font: inherit;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1rem;
+    min-height: 48px;
+    padding: .7rem 1.4rem;
+    border-radius: 999px;
+    border: 2px solid var(--purple);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  button:focus-visible { outline: none; box-shadow: var(--focus); }
+  .btn-primary { background: var(--purple); color: var(--white); }
+  .btn-primary:hover { background: var(--indigo); border-color: var(--indigo); }
+  .btn-secondary { background: var(--white); color: var(--purple); }
+  .btn-secondary:hover { background: var(--aqua-pale); }
+  .btn-link {
+    background: transparent;
+    border-color: transparent;
+    color: var(--purple);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    padding-left: .5rem; padding-right: .5rem;
+  }
+
+  /* Review */
+  .summary { display: grid; gap: 1rem; margin: 1.25rem 0 1.5rem; }
+  .summary section {
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    background: var(--aqua-pale);
+    border-left: 6px solid var(--teal-dark);
+  }
+  .summary section.partner { background: #f6e4ee; border-left-color: var(--magenta); }
+  .summary h3 { margin: 0 0 .5rem; font-size: 1.1rem; color: var(--navy); }
+  .summary dl { margin: 0; }
+  .summary dt { font-weight: 700; margin-top: .6rem; }
+  .summary dd { margin: .1rem 0 0; white-space: pre-wrap; }
+  .summary .empty { color: var(--muted); font-style: italic; }
+
+  .status {
+    margin-top: 1rem;
+    min-height: 1.5em;
+    font-weight: 600;
+    color: var(--teal-dark);
+  }
+  .status:empty { margin: 0; min-height: 0; }
+
+  .sr-only {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0);
+    white-space: nowrap; border: 0;
+  }
+
+  @media (max-width: 560px) {
+    .actions { flex-direction: column-reverse; align-items: stretch; }
+    .actions .right { margin-left: 0; flex-direction: column-reverse; }
+    button { justify-content: center; width: 100%; }
+    .progress li .label { display: none; }
+    .progress li { padding: .35rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+  }
+
+  @media (forced-colors: active) {
+    .chip input:checked + label { outline: 3px solid CanvasText; }
+    .chip .tick svg { opacity: 1; }
+    .chip input:not(:checked) + label .tick svg { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap" id="main">
+
+  <header class="intro">
+    <h1>My raw spots reflection</h1>
+    <p>Take a few minutes to think about what triggers you, and what might trigger your partner. At the end, you can copy your answers to keep.</p>
+    <p>There are no right or wrong answers. Choose any options that fit and add your own words if you like.</p>
+    <div class="privacy">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="#390070" d="M12 1 3 5v6c0 5.6 3.8 10.7 9 12 5.2-1.3 9-6.4 9-12V5l-9-4Zm0 10.9h7c-.5 4.1-3.3 7.8-7 8.9V12H5V6.3l7-3.1v8.7Z"/></svg>
+      <p style="margin:0"><strong>Your answers are private.</strong> Nothing you write is sent or saved anywhere. It stays on your device. If you leave this page, your answers will be cleared, so copy them before you leave.</p>
+    </div>
+  </header>
+
+  <nav aria-label="Activity progress">
+    <ol class="progress" id="progress">
+      <li data-step="1" aria-current="step"><span class="num" aria-hidden="true">1</span><span class="label">About me</span><span class="sr-only">Step 1: About me</span></li>
+      <li data-step="2"><span class="num" aria-hidden="true">2</span><span class="label">About my partner</span><span class="sr-only">Step 2: About my partner</span></li>
+      <li data-step="3"><span class="num" aria-hidden="true">3</span><span class="label">Review and keep</span><span class="sr-only">Step 3: Review and keep</span></li>
+    </ol>
+  </nav>
+
+  <form id="reflection" novalidate>
+
+    <!-- STEP 1 -->
+    <section class="card" id="step-1" aria-labelledby="step-1-title">
+      <h2 id="step-1-title" tabindex="-1">Step 1 of 3: About me</h2>
+      <p class="step-lead">Think about the things your partner does or says that set off a strong reaction in you.</p>
+
+      <fieldset aria-describedby="me-trig-hint">
+        <legend>What does your partner do or say that triggers you?</legend>
+        <p class="hint" id="me-trig-hint">Choose any that fit.</p>
+        <div class="chips" data-group="meTriggers"></div>
+        <div class="field">
+          <label for="meTriggersText">In your own words <span class="optional">(optional)</span></label>
+          <textarea id="meTriggersText" name="meTriggersText" placeholder="For example: When my partner looks at their phone while I'm talking."></textarea>
+        </div>
+      </fieldset>
+
+      <hr class="divider">
+
+      <fieldset aria-describedby="me-raw-hint">
+        <legend>What raw spot might this touch for you?</legend>
+        <p class="hint" id="me-raw-hint">A raw spot is an old hurt. When it gets touched, I might feel…</p>
+        <div class="chips" data-group="meRawSpots"></div>
+        <div class="field">
+          <label for="meRawText">Anything else you notice <span class="optional">(optional)</span></label>
+          <textarea id="meRawText" name="meRawText" placeholder="For example: It reminds me of feeling left out when I was younger."></textarea>
+        </div>
+      </fieldset>
+
+      <hr class="divider">
+
+      <div class="field">
+        <label for="meNote">A note to myself <span class="optional">(optional)</span></label>
+        <textarea id="meNote" name="meNote" placeholder="For example: When this happens, I can take a breath before I respond."></textarea>
+      </div>
+
+      <div class="actions">
+        <div class="right">
+          <button type="button" class="btn-primary" data-go="2">Next: About my partner
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.2 5.3 19.9 12l-6.7 6.7-1.4-1.4 4.3-4.3H4v-2h12.1l-4.3-4.3 1.4-1.4Z"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="card" id="step-2" aria-labelledby="step-2-title" hidden>
+      <h2 id="step-2-title" tabindex="-1">Step 2 of 3: About my partner</h2>
+      <p class="step-lead">Now think about the things you do or say that might set off a strong reaction in your partner.</p>
+
+      <fieldset aria-describedby="pa-trig-hint">
+        <legend>What do you do or say that might trigger your partner?</legend>
+        <p class="hint" id="pa-trig-hint">Choose any that fit.</p>
+        <div class="chips" data-group="paTriggers"></div>
+        <div class="field">
+          <label for="paTriggersText">In your own words <span class="optional">(optional)</span></label>
+          <textarea id="paTriggersText" name="paTriggersText" placeholder="For example: When I sigh or roll my eyes."></textarea>
+        </div>
+      </fieldset>
+
+      <hr class="divider">
+
+      <fieldset aria-describedby="pa-raw-hint">
+        <legend>What raw spot might this touch for your partner?</legend>
+        <p class="hint" id="pa-raw-hint">When this happens, my partner might feel…</p>
+        <div class="chips" data-group="paRawSpots"></div>
+        <div class="field">
+          <label for="paRawText">Anything else you notice <span class="optional">(optional)</span></label>
+          <textarea id="paRawText" name="paRawText" placeholder="For example: They go quiet and pull away."></textarea>
+        </div>
+      </fieldset>
+
+      <hr class="divider">
+
+      <div class="field">
+        <label for="paNote">A note to myself about my partner <span class="optional">(optional)</span></label>
+        <textarea id="paNote" name="paNote" placeholder="For example: I can slow down and check in with them."></textarea>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-secondary" data-go="1">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M10.8 5.3 4.1 12l6.7 6.7 1.4-1.4L7.9 13H20v-2H7.9l4.3-4.3-1.4-1.4Z"/></svg>
+          Back
+        </button>
+        <div class="right">
+          <button type="button" class="btn-primary" data-go="3">Next: Review
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.2 5.3 19.9 12l-6.7 6.7-1.4-1.4 4.3-4.3H4v-2h12.1l-4.3-4.3 1.4-1.4Z"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="card" id="step-3" aria-labelledby="step-3-title" hidden>
+      <h2 id="step-3-title" tabindex="-1">Step 3 of 3: Review and keep</h2>
+      <p class="step-lead">Check your answers. You can go back to change anything. When you're happy, select <strong>Keep my answers</strong> to copy them.</p>
+
+      <div class="field">
+        <label for="name">Your name, to add to your answers <span class="optional">(optional)</span></label>
+        <input type="text" id="name" name="name" autocomplete="given-name">
+      </div>
+
+      <div class="summary" id="summary" tabindex="-1" aria-label="Your answers"></div>
+
+      <div class="actions">
+        <button type="button" class="btn-secondary" data-go="2">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M10.8 5.3 4.1 12l6.7 6.7 1.4-1.4L7.9 13H20v-2H7.9l4.3-4.3-1.4-1.4Z"/></svg>
+          Back
+        </button>
+        <div class="right">
+          <button type="button" class="btn-primary" id="copyBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1Zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm0 16H8V7h11v14Z"/></svg>
+            Keep my answers
+          </button>
+        </div>
+      </div>
+
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+
+      <div style="text-align:center;margin-top:.5rem">
+        <button type="button" class="btn-link" id="resetBtn">Clear my answers and start again</button>
+      </div>
+    </section>
+
+  </form>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var TRIGGERS_ME = ["Tone of voice", "Facial expression", "Being interrupted", "Being criticised", "Being ignored", "A particular phrase"];
+  var TRIGGERS_PARTNER = ["My tone of voice", "My facial expression", "Interrupting them", "Criticising them", "Ignoring them", "A particular phrase I use"];
+  var RAW_SPOTS = ["Rejected", "Abandoned", "Not good enough", "Unimportant", "Controlled", "Invisible"];
+
+  var GROUPS = {
+    meTriggers: TRIGGERS_ME,
+    meRawSpots: RAW_SPOTS,
+    paTriggers: TRIGGERS_PARTNER,
+    paRawSpots: RAW_SPOTS
+  };
+
+  var tickSvg = '<svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="#390070" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2Z"/></svg>';
+
+  // Build checkbox chips
+  Object.keys(GROUPS).forEach(function (group) {
+    var holder = document.querySelector('[data-group="' + group + '"]');
+    GROUPS[group].forEach(function (text, i) {
+      var id = group + "-" + i;
+      var wrap = document.createElement("div");
+      wrap.className = "chip";
+      wrap.innerHTML =
+        '<input type="checkbox" id="' + id + '" name="' + group + '" value="' + text + '">' +
+        '<label for="' + id + '"><span class="tick" aria-hidden="true">' + tickSvg + '</span>' + text + '</label>';
+      holder.appendChild(wrap);
+    });
+  });
+
+  var form = document.getElementById("reflection");
+  var statusEl = document.getElementById("status");
+  var progressItems = document.querySelectorAll("#progress li");
+  var current = 1;
+
+  function goTo(step) {
+    for (var i = 1; i <= 3; i++) {
+      document.getElementById("step-" + i).hidden = (i !== step);
+    }
+    progressItems.forEach(function (li) {
+      var n = Number(li.getAttribute("data-step"));
+      if (n === step) li.setAttribute("aria-current", "step");
+      else li.removeAttribute("aria-current");
+      li.classList.toggle("done", n < step);
+    });
+    current = step;
+    if (step === 3) renderSummary();
+    statusEl.textContent = "";
+    var heading = document.getElementById("step-" + step + "-title");
+    heading.focus();
+    try { heading.scrollIntoView({ block: "start" }); } catch (e) {}
+  }
+
+  document.querySelectorAll("[data-go]").forEach(function (btn) {
+    btn.addEventListener("click", function () { goTo(Number(btn.getAttribute("data-go"))); });
+  });
+
+  function checked(group) {
+    return Array.prototype.map.call(
+      form.querySelectorAll('input[name="' + group + '"]:checked'),
+      function (el) { return el.value; }
+    );
+  }
+  function val(id) { return document.getElementById(id).value.trim(); }
+
+  function collect() {
+    return {
+      name: val("name"),
+      me: {
+        triggers: checked("meTriggers"),
+        triggersText: val("meTriggersText"),
+        raw: checked("meRawSpots"),
+        rawText: val("meRawText"),
+        note: val("meNote")
+      },
+      partner: {
+        triggers: checked("paTriggers"),
+        triggersText: val("paTriggersText"),
+        raw: checked("paRawSpots"),
+        rawText: val("paRawText"),
+        note: val("paNote")
+      }
+    };
+  }
+
+  // Turn one person's answers into labelled rows
+  function rows(part, who) {
+    var isMe = who === "me";
+    var r = [];
+    var trig = part.triggers.slice();
+    if (part.triggersText) trig.push(part.triggersText);
+    r.push([isMe ? "What triggers me" : "What I do that might trigger my partner", trig]);
+    var raw = part.raw.map(function (s) { return "Feeling " + s.toLowerCase(); });
+    if (part.rawText) raw.push(part.rawText);
+    r.push([isMe ? "Raw spots this might touch for me" : "Raw spots this might touch for my partner", raw]);
+    r.push(["A note to myself", part.note ? [part.note] : []]);
+    return r;
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function sectionHtml(title, cls, list) {
+    var html = '<section class="' + cls + '"><h3>' + title + '</h3><dl>';
+    list.forEach(function (row) {
+      html += "<dt>" + row[0] + "</dt>";
+      html += row[1].length
+        ? "<dd>" + row[1].map(escapeHtml).join("<br>") + "</dd>"
+        : '<dd class="empty">Nothing added</dd>';
+    });
+    return html + "</dl></section>";
+  }
+
+  function renderSummary() {
+    var d = collect();
+    document.getElementById("summary").innerHTML =
+      sectionHtml("About me", "me", rows(d.me, "me")) +
+      sectionHtml("About my partner", "partner", rows(d.partner, "partner"));
+  }
+
+  function hasAnything(d) {
+    var parts = [d.me, d.partner];
+    return parts.some(function (p) {
+      return p.triggers.length || p.raw.length || p.triggersText || p.rawText || p.note;
+    });
+  }
+
+  function today() {
+    try {
+      return new Date().toLocaleDateString("en-AU", { day: "numeric", month: "long", year: "numeric" });
+    } catch (e) { return new Date().toDateString(); }
+  }
+
+  function plainText(d) {
+    var out = [];
+    out.push("MY RAW SPOTS REFLECTION");
+    if (d.name) out.push("Name: " + d.name);
+    out.push("Date: " + today());
+    out.push("");
+    [["ABOUT ME", rows(d.me, "me")], ["ABOUT MY PARTNER", rows(d.partner, "partner")]].forEach(function (sec) {
+      out.push(sec[0]);
+      sec[1].forEach(function (row) {
+        out.push(row[0] + ":");
+        if (row[1].length) row[1].forEach(function (x) { out.push("  - " + x); });
+        else out.push("  - Nothing added");
+      });
+      out.push("");
+    });
+    out.push("Remember: a trigger is something that happens now. A raw spot is the old hurt underneath.");
+    return out.join("\n");
+  }
+
+  function say(msg) {
+    statusEl.textContent = "";
+    setTimeout(function () { statusEl.textContent = msg; }, 50);
+  }
+
+  var COPIED = "Your answers have been copied. You can now paste them into your notes, an email or a document to keep.";
+  var FAILED = "Sorry, copying didn't work on this device. Your answers are now selected above, so you can copy them yourself.";
+
+  // Copy using a hidden text box. This works inside embedded pages and on most phones.
+  function copyWithTextBox(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("aria-hidden", "true");
+    ta.style.position = "fixed";
+    ta.style.top = "0";
+    ta.style.left = "0";
+    ta.style.opacity = "0";
+    ta.style.fontSize = "16px"; // stops iPhones zooming in
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { ta.setSelectionRange(0, text.length); } catch (e) {}
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    ta.remove();
+    return ok;
+  }
+
+  // If copying fails, select the answers on screen so the learner can copy them by hand
+  function selectSummary() {
+    var el = document.getElementById("summary");
+    try {
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } catch (e) {}
+  }
+
+  document.getElementById("copyBtn").addEventListener("click", function () {
+    var btn = this;
+    var d = collect();
+    if (!hasAnything(d)) {
+      say("You haven't added anything yet. Go back and choose or write at least one answer first.");
+      return;
+    }
+    renderSummary();
+    var text = plainText(d);
+    var ok = copyWithTextBox(text);
+    btn.focus();
+    if (ok) { say(COPIED); return; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        say(COPIED);
+      }, function () {
+        selectSummary();
+        say(FAILED);
+      });
+    } else {
+      selectSummary();
+      say(FAILED);
+    }
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", function () {
+    form.reset();
+    goTo(1);
+    say("");
+  });
+
+  form.addEventListener("submit", function (e) { e.preventDefault(); });
+})();
+</script>
+</body>
+</html>
