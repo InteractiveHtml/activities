@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Looking beneath a reaction</title>
+<meta name="description" content="A private reflection activity. Work through one moment when you reacted strongly, and look at what was happening underneath. Copy your answers to keep.">
+
+<!-- Montserrat for headings, Figtree as the closest free match for Proxima Nova -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!--
+  Proxima Nova (body text) is an Adobe Fonts typeface.
+  If the client has an Adobe Fonts web project, paste its link here, for example:
+  <link rel="stylesheet" href="https://use.typekit.net/XXXXXXX.css">
+  Without it, body text uses Figtree.
+-->
+
+<style>
+  :root {
+    --navy: #131131;
+    --indigo: #262262;
+    --purple: #390070;
+    --magenta: #d22176;
+    --teal: #2dabbf;
+    --teal-dark: #22808f;
+    --aqua: #9ae2e0;
+    --aqua-pale: #d7f3f3;
+    --pink-pale: #f6e4ee;
+    --gold: #d2ba21;
+    --gold-pale: #faf7de;
+    --activity-bg: #e4de74;
+    --white: #ffffff;
+    --text: #131131;
+    --muted: #3d3b5c;
+    --radius: 18px;
+    --zone-green: #2e7d32;
+    --zone-orange: #c75b00;
+    --zone-red: #b3261e;
+    --focus: 0 0 0 3px var(--white), 0 0 0 6px var(--navy);
+    --font-body: "proxima-nova", "Proxima Nova", "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --font-head: "Montserrat", "proxima-nova", "Figtree", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--activity-bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 32px 16px 48px;
+  }
+
+  h1, h2, h3, legend {
+    font-family: var(--font-head);
+    color: var(--purple);
+    line-height: 1.25;
+  }
+  h1 { font-size: clamp(1.6rem, 4vw, 2.1rem); margin: 0 0 .5rem; }
+  h2 { font-size: clamp(1.3rem, 3vw, 1.6rem); margin: 0 0 .25rem; }
+  h2:focus { outline: none; }
+  h2:focus-visible { box-shadow: var(--focus); border-radius: 6px; }
+
+  .intro p { margin: .25rem 0 .75rem; max-width: 70ch; }
+
+  .privacy {
+    display: flex;
+    gap: .6rem;
+    align-items: flex-start;
+    background: rgba(255,255,255,.55);
+    border-left: 5px solid var(--purple);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    margin: 1rem 0 1.5rem;
+    font-size: .98rem;
+  }
+  .privacy svg { flex: 0 0 auto; margin-top: .2rem; }
+
+  /* Progress */
+  .progress {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+  }
+  .progress li {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-weight: 600;
+    font-size: .95rem;
+    background: rgba(255,255,255,.55);
+    padding: .35rem .85rem .35rem .4rem;
+    border-radius: 999px;
+    color: var(--muted);
+  }
+  .progress .num {
+    display: inline-grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--purple);
+    font-family: var(--font-head);
+    font-size: .9rem;
+    border: 2px solid var(--purple);
+  }
+  .progress li[aria-current="step"] { background: var(--white); color: var(--navy); }
+  .progress li[aria-current="step"] .num { background: var(--purple); color: var(--white); }
+  .progress li.done .num { background: var(--teal-dark); border-color: var(--teal-dark); color: var(--white); }
+
+  /* Card */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: clamp(20px, 4vw, 36px);
+    box-shadow: 0 6px 24px rgba(19,17,49,.10);
+  }
+  .card[hidden] { display: none; }
+
+  .step-lead { margin: .25rem 0 1.5rem; color: var(--muted); }
+
+  fieldset {
+    border: 0;
+    margin: 0 0 1.75rem;
+    padding: 0;
+    min-width: 0;
+  }
+  legend {
+    font-size: 1.12rem;
+    font-weight: 700;
+    padding: 0;
+    margin-bottom: .35rem;
+    color: var(--navy);
+  }
+  .hint { margin: 0 0 .85rem; color: var(--muted); font-size: .97rem; }
+
+  /* Choice chips: real checkboxes and radios, styled */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    margin-bottom: 1rem;
+  }
+  .chip { position: relative; }
+  .chip input {
+    position: absolute;
+    opacity: 0;
+    width: 1px; height: 1px;
+    margin: 0;
+  }
+  .chip label {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    min-height: 44px;
+    padding: .5rem 1rem .5rem .75rem;
+    border: 2px solid var(--indigo);
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--navy);
+    cursor: pointer;
+    font-weight: 500;
+    user-select: none;
+    transition: background-color .15s, color .15s;
+  }
+  .chip .tick {
+    width: 1.15rem; height: 1.15rem;
+    border: 2px solid var(--indigo);
+    border-radius: 4px;
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 auto;
+    background: var(--white);
+  }
+  .chip input[type="radio"] + label .tick { border-radius: 50%; }
+  .chip .tick svg { opacity: 0; }
+  .chip label:hover { background: var(--aqua-pale); }
+  .chip input:checked + label {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: var(--white);
+  }
+  .chip input:checked + label .tick { border-color: var(--white); background: var(--white); }
+  .chip input:checked + label .tick svg { opacity: 1; }
+  .chip input:focus-visible + label { box-shadow: var(--focus); }
+
+  /* Zone chips: coloured dot as well as words, never colour alone */
+  .zone-dot {
+    width: .8rem; height: .8rem;
+    border-radius: 50%;
+    flex: 0 0 auto;
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 1px rgba(19,17,49,.35);
+  }
+  .zone-green  { background: var(--zone-green); }
+  .zone-orange { background: var(--zone-orange); }
+  .zone-red    { background: var(--zone-red); }
+  .zone-unsure { background: #b9b7cc; }
+  .zone-desc { font-weight: 400; }
+
+  .field { margin-top: .25rem; }
+  .field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: .35rem;
+  }
+  .field .optional { font-weight: 400; color: var(--muted); }
+  textarea, input[type="text"] {
+    width: 100%;
+    font: inherit;
+    color: var(--navy);
+    border: 2px solid #8a88a6;
+    border-radius: 12px;
+    padding: .7rem .85rem;
+    background: var(--white);
+  }
+  textarea { min-height: 96px; resize: vertical; }
+  textarea:focus-visible, input[type="text"]:focus-visible {
+    outline: none;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px var(--aqua);
+  }
+  textarea::placeholder { color: #6b6987; }
+
+  .divider {
+    height: 1px;
+    background: #e4e3ee;
+    margin: .5rem 0 1.75rem;
+    border: 0;
+  }
+
+  .care {
+    background: var(--gold-pale);
+    border-left: 5px solid var(--gold);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    margin: 0 0 1.5rem;
+    font-size: .98rem;
+  }
+  .care p { margin: 0; }
+
+  /* Buttons */
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  .actions .right { display: flex; flex-wrap: wrap; gap: .75rem; margin-left: auto; }
+  button {
+    font: inherit;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1rem;
+    min-height: 48px;
+    padding: .7rem 1.4rem;
+    border-radius: 999px;
+    border: 2px solid var(--purple);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  button:focus-visible { outline: none; box-shadow: var(--focus); }
+  .btn-primary { background: var(--purple); color: var(--white); }
+  .btn-primary:hover { background: var(--indigo); border-color: var(--indigo); }
+  .btn-secondary { background: var(--white); color: var(--purple); }
+  .btn-secondary:hover { background: var(--aqua-pale); }
+  .btn-link {
+    background: transparent;
+    border-color: transparent;
+    color: var(--purple);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    padding-left: .5rem; padding-right: .5rem;
+  }
+
+  /* Review */
+  .summary { display: grid; gap: 1rem; margin: 1.25rem 0 1.5rem; }
+  .summary section {
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    background: var(--aqua-pale);
+    border-left: 6px solid var(--teal-dark);
+  }
+  .summary section.alt { background: var(--pink-pale); border-left-color: var(--magenta); }
+  .summary h3 { margin: 0 0 .5rem; font-size: 1.1rem; color: var(--navy); }
+  .summary dl { margin: 0; }
+  .summary dt { font-weight: 700; margin-top: .6rem; }
+  .summary dd { margin: .1rem 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .summary .empty { color: var(--muted); font-style: italic; }
+
+  .status {
+    margin-top: 1rem;
+    min-height: 1.5em;
+    font-weight: 600;
+    color: var(--teal-dark);
+  }
+  .status:empty { margin: 0; min-height: 0; }
+
+  .manual-copy { margin-top: 1rem; }
+  .manual-copy[hidden] { display: none; }
+  .manual-copy textarea { min-height: 220px; font-size: .95rem; }
+
+  .sr-only {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0);
+    white-space: nowrap; border: 0;
+  }
+
+  @media (max-width: 700px) {
+    .progress li .label { display: none; }
+    .progress li { padding: .35rem; }
+  }
+
+  @media (max-width: 560px) {
+    .actions { flex-direction: column-reverse; align-items: stretch; }
+    .actions .right { margin-left: 0; flex-direction: column; }
+    button { justify-content: center; width: 100%; }
+    .chip label { white-space: normal; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+  }
+
+  @media (forced-colors: active) {
+    .chip input:checked + label { outline: 3px solid CanvasText; }
+    .chip .tick svg { opacity: 1; }
+    .chip input:not(:checked) + label .tick svg { opacity: 0; }
+    .zone-dot { forced-color-adjust: none; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap" id="main">
+
+  <header class="intro">
+    <h1>Looking beneath a reaction</h1>
+    <p>Think of one recent moment when your partner did or said something and you reacted strongly. We'll work through it step by step, to see what was happening underneath. At the end, you can copy your answers to keep.</p>
+    <p>Choose a moment that felt small to medium, rather than your hardest one. There are no right or wrong answers. Choose any options that fit and add your own words if you like.</p>
+    <div class="privacy">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="#390070" d="M12 1 3 5v6c0 5.6 3.8 10.7 9 12 5.2-1.3 9-6.4 9-12V5l-9-4Zm0 10.9h7c-.5 4.1-3.3 7.8-7 8.9V12H5V6.3l7-3.1v8.7Z"/></svg>
+      <p style="margin:0"><strong>Your answers are private.</strong> Nothing you write is sent or saved anywhere. It stays on your device. If you leave this page, your answers will be cleared, so copy them before you leave.</p>
+    </div>
+  </header>
+
+  <nav aria-label="Activity progress">
+    <ol class="progress" id="progress">
+      <li data-step="1" aria-current="step"><span class="num" aria-hidden="true">1</span><span class="label" aria-hidden="true">The moment</span><span class="sr-only">Step 1: The moment</span></li>
+      <li data-step="2"><span class="num" aria-hidden="true">2</span><span class="label" aria-hidden="true">My reaction</span><span class="sr-only">Step 2: My reaction</span></li>
+      <li data-step="3"><span class="num" aria-hidden="true">3</span><span class="label" aria-hidden="true">The need underneath</span><span class="sr-only">Step 3: The need underneath</span></li>
+      <li data-step="4"><span class="num" aria-hidden="true">4</span><span class="label" aria-hidden="true">Where it comes from</span><span class="sr-only">Step 4: Where it comes from</span></li>
+      <li data-step="5"><span class="num" aria-hidden="true">5</span><span class="label" aria-hidden="true">Review and keep</span><span class="sr-only">Step 5: Review and keep</span></li>
+    </ol>
+  </nav>
+
+  <form id="reflection" novalidate>
+
+    <!-- STEP 1: THE MOMENT -->
+    <section class="card" id="step-1" aria-labelledby="step-1-title">
+      <h2 id="step-1-title" tabindex="-1">Step 1 of 5: The moment</h2>
+      <p class="step-lead">Bring the moment to mind. Where were you, and what happened?</p>
+
+      <div class="field">
+        <label for="momentText">What happened? <span class="optional">(optional)</span></label>
+        <textarea id="momentText" name="momentText" placeholder="For example: I was telling my partner about my day and they started scrolling on their phone."></textarea>
+      </div>
+
+      <hr class="divider" style="margin-top:1.75rem">
+
+      <fieldset aria-describedby="trig-hint">
+        <legend>What was the trigger?</legend>
+        <p class="hint" id="trig-hint">Choose any that fit.</p>
+        <div class="chips" data-group="trigger"></div>
+      </fieldset>
+
+      <div class="actions">
+        <div class="right">
+          <button type="button" class="btn-primary" data-go="2">Next: My reaction
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.2 5.3 19.9 12l-6.7 6.7-1.4-1.4 4.3-4.3H4v-2h12.1l-4.3-4.3 1.4-1.4Z"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2: MY REACTION -->
+    <section class="card" id="step-2" aria-labelledby="step-2-title" hidden>
+      <h2 id="step-2-title" tabindex="-1">Step 2 of 5: My reaction</h2>
+      <p class="step-lead">Slow the moment down. Notice what you did on the outside, and what was going on inside.</p>
+
+      <fieldset aria-describedby="did-hint">
+        <legend>What did I do? (outwardly)</legend>
+        <p class="hint" id="did-hint">Choose any that fit.</p>
+        <div class="chips" data-group="did"></div>
+        <div class="field">
+          <label for="didText">In your own words <span class="optional">(optional)</span></label>
+          <textarea id="didText" name="didText" placeholder="For example: I said something sharp and left the room."></textarea>
+        </div>
+      </fieldset>
+
+      <hr class="divider">
+
+      <fieldset aria-describedby="felt-hint">
+        <legend>What did I feel? (inwardly)</legend>
+        <p class="hint" id="felt-hint">Choose any that fit.</p>
+        <div class="chips" data-group="felt"></div>
+        <div class="field">
+          <label for="feltText">In your own words <span class="optional">(optional)</span></label>
+          <textarea id="feltText" name="feltText" placeholder="For example: Under the anger, I felt hurt."></textarea>
+        </div>
+      </fieldset>
+
+      <hr class="divider">
+
+      <fieldset aria-describedby="body-hint">
+        <legend>What did I notice in my body?</legend>
+        <p class="hint" id="body-hint">Choose any that fit.</p>
+        <div class="chips" data-group="body"></div>
+        <div class="field">
+          <label for="bodyText">Something else <span class="optional">(optional)</span></label>
+          <textarea id="bodyText" name="bodyText" placeholder="For example: My hands started shaking."></textarea>
+        </div>
+      </fieldset>
+
+      <hr class="divider">
+
+      <fieldset aria-describedby="zone-hint">
+        <legend>Which zone of the ladder was I in?</legend>
+        <p class="hint" id="zone-hint">Think back to the ladder with the green, orange and red zones. Choose one.</p>
+        <div class="chips" data-group="zone" data-type="radio"></div>
+      </fieldset>
+
+      <div class="actions">
+        <button type="button" class="btn-secondary" data-go="1">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M10.8 5.3 4.1 12l6.7 6.7 1.4-1.4L7.9 13H20v-2H7.9l4.3-4.3-1.4-1.4Z"/></svg>
+          Back
+        </button>
+        <div class="right">
+          <button type="button" class="btn-primary" data-go="3">Next: The need underneath
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.2 5.3 19.9 12l-6.7 6.7-1.4-1.4 4.3-4.3H4v-2h12.1l-4.3-4.3 1.4-1.4Z"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3: THE NEED UNDERNEATH -->
+    <section class="card" id="step-3" aria-labelledby="step-3-title" hidden>
+      <h2 id="step-3-title" tabindex="-1">Step 3 of 5: The need underneath</h2>
+      <p class="step-lead">Under a strong reaction there is usually an attachment need that didn't feel met in that moment.</p>
+
+      <fieldset aria-describedby="need-hint">
+        <legend>What was I needing or longing for?</legend>
+        <p class="hint" id="need-hint">In that moment, I needed…</p>
+        <div class="chips" data-group="need"></div>
+        <div class="field">
+          <label for="needText">In your own words <span class="optional">(optional)</span></label>
+          <textarea id="needText" name="needText" placeholder="For example: I wanted to know that what I say matters to them."></textarea>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <button type="button" class="btn-secondary" data-go="2">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M10.8 5.3 4.1 12l6.7 6.7 1.4-1.4L7.9 13H20v-2H7.9l4.3-4.3-1.4-1.4Z"/></svg>
+          Back
+        </button>
+        <div class="right">
+          <button type="button" class="btn-primary" data-go="4">Next: Where it comes from
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.2 5.3 19.9 12l-6.7 6.7-1.4-1.4 4.3-4.3H4v-2h12.1l-4.3-4.3 1.4-1.4Z"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 4: WHERE IT COMES FROM -->
+    <section class="card" id="step-4" aria-labelledby="step-4-title" hidden>
+      <h2 id="step-4-title" tabindex="-1">Step 4 of 5: Where it comes from</h2>
+      <p class="step-lead">Our past experiences can shape how strongly we react now. Think about what this moment might have reminded you of.</p>
+
+      <div class="care">
+        <p>Only go as deep as feels comfortable. Fully understanding where our raw spots come from can take time, and sometimes support from a counsellor or psychologist.</p>
+      </div>
+
+      <fieldset aria-describedby="hist-hint">
+        <legend>What past experiences might be part of my reaction?</legend>
+        <p class="hint" id="hist-hint">Choose any that fit, or skip this question.</p>
+        <div class="chips" data-group="history"></div>
+        <div class="field">
+          <label for="historyText">In your own words <span class="optional">(optional)</span></label>
+          <textarea id="historyText" name="historyText" placeholder="For example: It reminds me of trying to get my dad's attention when he was busy."></textarea>
+        </div>
+      </fieldset>
+
+      <hr class="divider">
+
+      <fieldset aria-describedby="nowthen-hint">
+        <legend>Looking back, how much was my reaction about now, and how much about the past?</legend>
+        <p class="hint" id="nowthen-hint">Choose one.</p>
+        <div class="chips" data-group="nowThen" data-type="radio"></div>
+      </fieldset>
+
+      <hr class="divider">
+
+      <div class="field">
+        <label for="nextTime">Next time something like this happens, what would I like to do differently? <span class="optional">(optional)</span></label>
+        <textarea id="nextTime" name="nextTime" placeholder="For example: Notice my heart racing, take a breath, and tell my partner I'm feeling unimportant."></textarea>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-secondary" data-go="3">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M10.8 5.3 4.1 12l6.7 6.7 1.4-1.4L7.9 13H20v-2H7.9l4.3-4.3-1.4-1.4Z"/></svg>
+          Back
+        </button>
+        <div class="right">
+          <button type="button" class="btn-primary" data-go="5">Next: Review
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.2 5.3 19.9 12l-6.7 6.7-1.4-1.4 4.3-4.3H4v-2h12.1l-4.3-4.3 1.4-1.4Z"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5: REVIEW AND KEEP -->
+    <section class="card" id="step-5" aria-labelledby="step-5-title" hidden>
+      <h2 id="step-5-title" tabindex="-1">Step 5 of 5: Review and keep</h2>
+      <p class="step-lead">Check your answers. You can go back to change anything. When you're happy, copy your answers and paste them into a note, email or document to keep.</p>
+
+      <div class="summary" id="summary"></div>
+
+      <div class="actions">
+        <button type="button" class="btn-secondary" data-go="4">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M10.8 5.3 4.1 12l6.7 6.7 1.4-1.4L7.9 13H20v-2H7.9l4.3-4.3-1.4-1.4Z"/></svg>
+          Back
+        </button>
+        <div class="right">
+          <button type="button" class="btn-primary" id="copyBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1Zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm0 16H8V7h11v14Z"/></svg>
+            Keep my answers
+          </button>
+        </div>
+      </div>
+
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+
+      <div class="field manual-copy" id="manualCopy" hidden>
+        <label for="manualText">Your answers, ready to copy</label>
+        <textarea id="manualText" readonly></textarea>
+      </div>
+
+      <div style="text-align:center;margin-top:.5rem">
+        <button type="button" class="btn-link" id="resetBtn">Clear my answers and start again</button>
+      </div>
+    </section>
+
+  </form>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var TOTAL = 5;
+
+  var OPTIONS = {
+    trigger: ["Tone of voice", "Facial expression", "Being interrupted", "Being criticised", "Being ignored", "A particular phrase"],
+    did: ["Raised my voice", "Argued back", "Blamed or criticised", "Demanded an answer", "Went quiet", "Walked away", "Shut down"],
+    felt: ["Angry", "Anxious", "Hurt", "Defensive", "Frustrated", "Lonely", "Ashamed", "Numb"],
+    body: ["Racing heart", "Tight chest", "Tight jaw or gritted teeth", "Hot or red face", "Queasy stomach", "Tense muscles", "Mind spinning", "Short of breath", "Something else"],
+    need: ["To feel safe", "To feel valued", "To feel emotionally connected", "To be seen", "To feel I matter"],
+    history: ["A past relationship", "Losing someone important when I was young", "Being bullied or picked on", "A parent who was busy or unavailable", "Being criticised a lot growing up", "Something else"],
+    zone: [
+      { value: "Green zone: safe and social", dot: "zone-green", html: "<strong>Green</strong><span class=\"zone-desc\">: safe and social</span>" },
+      { value: "Orange zone: flight or fight", dot: "zone-orange", html: "<strong>Orange</strong><span class=\"zone-desc\">: flight or fight</span>" },
+      { value: "Red zone: freeze", dot: "zone-red", html: "<strong>Red</strong><span class=\"zone-desc\">: freeze</span>" },
+      { value: "Not sure", dot: "zone-unsure", html: "Not sure" }
+    ],
+    nowThen: ["Mostly about now", "Mostly about the past", "A bit of both", "Not sure"]
+  };
+
+  var tickSvg = '<svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="#390070" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2Z"/></svg>';
+  var dotSvg = '<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><circle cx="5" cy="5" r="4" fill="#390070"/></svg>';
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  // Build chips (checkboxes, or radios where data-type="radio")
+  Object.keys(OPTIONS).forEach(function (group) {
+    var holder = document.querySelector('[data-group="' + group + '"]');
+    var isRadio = holder.getAttribute("data-type") === "radio";
+    OPTIONS[group].forEach(function (opt, i) {
+      var o = typeof opt === "string" ? { value: opt, html: escapeHtml(opt) } : opt;
+      var id = group + "-" + i;
+      var wrap = document.createElement("div");
+      wrap.className = "chip";
+      wrap.innerHTML =
+        '<input type="' + (isRadio ? "radio" : "checkbox") + '" id="' + id + '" name="' + group + '" value="' + escapeHtml(o.value) + '">' +
+        '<label for="' + id + '"><span class="tick" aria-hidden="true">' + (isRadio ? dotSvg : tickSvg) + '</span>' +
+        (o.dot ? '<span class="zone-dot ' + o.dot + '" aria-hidden="true"></span>' : "") +
+        '<span>' + o.html + '</span></label>';
+      holder.appendChild(wrap);
+    });
+  });
+
+  var form = document.getElementById("reflection");
+  var statusEl = document.getElementById("status");
+  var manualBox = document.getElementById("manualCopy");
+  var manualText = document.getElementById("manualText");
+  var progressItems = document.querySelectorAll("#progress li");
+
+  function goTo(step) {
+    for (var i = 1; i <= TOTAL; i++) {
+      document.getElementById("step-" + i).hidden = (i !== step);
+    }
+    progressItems.forEach(function (li) {
+      var n = Number(li.getAttribute("data-step"));
+      if (n === step) li.setAttribute("aria-current", "step");
+      else li.removeAttribute("aria-current");
+      li.classList.toggle("done", n < step);
+    });
+    if (step === TOTAL) renderSummary();
+    statusEl.textContent = "";
+    manualBox.hidden = true;
+    var heading = document.getElementById("step-" + step + "-title");
+    heading.focus({ preventScroll: true });
+    try { heading.scrollIntoView({ block: "start" }); } catch (e) {}
+  }
+
+  document.querySelectorAll("[data-go]").forEach(function (btn) {
+    btn.addEventListener("click", function () { goTo(Number(btn.getAttribute("data-go"))); });
+  });
+
+  function checked(group) {
+    return Array.prototype.map.call(
+      form.querySelectorAll('input[name="' + group + '"]:checked'),
+      function (el) { return el.value; }
+    );
+  }
+  function val(id) { return document.getElementById(id).value.trim(); }
+  function withText(list, text) {
+    var l = list.slice();
+    // If they ticked "Something else" and also wrote it, just show what they wrote
+    if (text) { l = l.filter(function (x) { return x !== "Something else"; }); l.push(text); }
+    return l;
+  }
+
+  // Sections and rows used for both the review screen and the copied text
+  function sections() {
+    return [
+      { title: "The moment", cls: "", rows: [
+        ["What happened", withText([], val("momentText"))],
+        ["The trigger", checked("trigger")]
+      ]},
+      { title: "My reaction", cls: "alt", rows: [
+        ["What I did (outwardly)", withText(checked("did"), val("didText"))],
+        ["What I felt (inwardly)", withText(checked("felt"), val("feltText"))],
+        ["What I noticed in my body", withText(checked("body"), val("bodyText"))],
+        ["Which zone of the ladder I was in", checked("zone")]
+      ]},
+      { title: "The need underneath", cls: "", rows: [
+        ["What I was needing", withText(checked("need"), val("needText"))]
+      ]},
+      { title: "Where it comes from", cls: "alt", rows: [
+        ["Past experiences that might be part of it", withText(checked("history"), val("historyText"))],
+        ["Was it about now or the past?", checked("nowThen")],
+        ["Next time, I'd like to", withText([], val("nextTime"))]
+      ]}
+    ];
+  }
+
+  function renderSummary() {
+    var html = "";
+    sections().forEach(function (sec) {
+      html += '<section class="' + sec.cls + '"><h3>' + sec.title + '</h3><dl>';
+      sec.rows.forEach(function (row) {
+        html += "<dt>" + escapeHtml(row[0]) + "</dt>";
+        html += row[1].length
+          ? "<dd>" + row[1].map(escapeHtml).join("<br>") + "</dd>"
+          : '<dd class="empty">Nothing added</dd>';
+      });
+      html += "</dl></section>";
+    });
+    document.getElementById("summary").innerHTML = html;
+  }
+
+  function hasAnything() {
+    return sections().some(function (sec) {
+      return sec.rows.some(function (row) { return row[1].length; });
+    });
+  }
+
+  function today() {
+    try {
+      return new Date().toLocaleDateString("en-AU", { day: "numeric", month: "long", year: "numeric" });
+    } catch (e) { return new Date().toDateString(); }
+  }
+
+  function plainText() {
+    var out = ["LOOKING BENEATH A REACTION", "Date: " + today(), ""];
+    sections().forEach(function (sec) {
+      out.push(sec.title.toUpperCase());
+      sec.rows.forEach(function (row) {
+        out.push(row[0] + ":");
+        if (row[1].length) row[1].forEach(function (x) { out.push("  - " + x); });
+        else out.push("  - Nothing added");
+      });
+      out.push("");
+    });
+    out.push("Remember: notice the trigger, slow down, and look for the need underneath. Then you have a choice in how you respond.");
+    return out.join("\n");
+  }
+
+  function say(msg) {
+    statusEl.textContent = "";
+    setTimeout(function () { statusEl.textContent = msg; }, 50);
+  }
+
+  var COPIED = "Copied. You can now paste your answers into a note, email or document.";
+
+  function showManual(text) {
+    manualText.value = text;
+    manualBox.hidden = false;
+    say("Copying isn't available here. Your answers are in the box below. Select all the text in the box and copy it.");
+    manualText.focus();
+    try { manualText.select(); } catch (e) {}
+  }
+
+  document.getElementById("copyBtn").addEventListener("click", function () {
+    if (!hasAnything()) {
+      say("You haven't added anything yet. Go back and choose or write at least one answer first.");
+      return;
+    }
+    var text = plainText();
+    manualBox.hidden = true;
+
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed"; ta.style.top = "0"; ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { ta.setSelectionRange(0, text.length); } catch (e) {}
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) {}
+      ta.remove();
+      document.getElementById("copyBtn").focus();
+      if (ok) say(COPIED); else showManual(text);
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { say(COPIED); }, fallback);
+    } else { fallback(); }
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", function () {
+    form.reset();
+    goTo(1);
+    say("Your answers have been cleared.");
+  });
+
+  form.addEventListener("submit", function (e) { e.preventDefault(); });
+})();
+</script>
+</body>
+</html>
